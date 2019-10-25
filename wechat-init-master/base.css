@@ -1,0 +1,53 @@
+html {
+  font-family: Arial,\534E\6587\7EC6\9ED1;
+  font-weight: 500;
+}
+body,
+ul,
+li,
+div,
+dd,
+p,
+h4,
+h5,
+h6 {
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+li {
+  list-style: none;
+}
+input {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+}
+a {
+  text-decoration: none;
+  display: block;
+}
+img {
+  display: block;
+  max-width: 100%;
+}
+table {
+  border-collapse:collapse;
+  text-align: center;
+}
+.viewport {
+  margin: 0 auto;
+}
+.clearfix:after {
+  content: "";
+  display: block;
+  clear: both;
+}
+.clearfix {
+  zoom: 1;
+}
+.fl {
+  float: left;
+}
+.fr {
+  float: right;
+}

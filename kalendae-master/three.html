@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="kalendae.css">
+</head>
+<body>
+
+<div id="box">
+
+</div>
+
+<script src="../js/jq.js"></script>
+<script src="kalendae.js"></script>
+<script>
+    var kal = new Kalendae({
+        attachTo: document.getElementById("box"),
+        months: 3,
+        direction: "future",
+        mode: "multiple",
+        selected: "2018-03-31"//这里填已经有档期的日期
+    })
+</script>
+</body>
+</html>

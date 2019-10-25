@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>旅游</title>
+    <script src="js/jquery-1.12.4.js"></script>
+    <script type="text/javascript" src="js/boom.js"></script>
+    <script src="js/wzp.js"></script>
+    <style>
+        /*爆炸轮播*/
+        #wzpimg {
+            width: 704px;
+            height: 314px;
+            background: url("wzpimg/wzp31.png") no-repeat;
+            cursor: pointer;
+        }
+        .wzp {
+            float: left;
+            width: 704px;
+            height: 314px;
+            position: relative;
+            margin-left: 16px;
+        }
+        #wzparr {
+            display: none;
+        }
+        #wzparr span {
+            width: 40px;
+            height: 40px;
+            position: absolute;
+            left: 1px;
+            top: 50%;
+            margin-top: -20px;
+            background: #000;
+            cursor: pointer;
+            line-height: 40px;
+            text-align: center;
+            font-weight: bold;
+            font-family: '黑体';
+            font-size: 30px;
+            color: #fff;
+            opacity: 0.3;
+            border: 1px solid #fff;
+        }
+        #wzparr #wzpright {
+            right: 1px;
+            left: auto;
+        }
+    </style>
+</head>
+<body>
+        <div class="wzp" id="wzp">
+            <div id="wzpimg"></div>
+            <div id="wzparr"><span id="wzpleft">&lt;</span><span id="wzpright">&gt;</span></div>
+        </div>
+
+</body>
+</html>
