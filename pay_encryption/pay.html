@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>支付</title>
+</head>
+<body>
+
+
+<iframe id="id_iframe" name="nm_iframe" style="width: 3rem;height: 3rem;border: 0"></iframe>
+<img src="" alt="" id="img" style="width: 3rem;height: 3rem">
+
+
+
+<script src="../js/jq.js"></script>
+<script src="crypto-js.js"></script>
+<script src="sha1.js"></script>
+<script src="jsencrypt.min.js"></script>
+<script>
+
+    var vars = {
+        data:'4g7IbKWBJbV8M1X/ELjOsLswXDJhODYq0vOmjE7WQe9qeSh94SoK5Z9E6P5DGNki7KVYs5gvlIGRUZjhM3+LNg==',
+        sign:'c2c2601afd5a73775c701b68500bfc8018384249',
+        key:'OjfngFad7TGKL50Frgc+UHvweX7g3IK0PcsgFUxuASDFhXbrPW+2Fre+PTe4CjDQXB96espXdN3RVYNPigszUIcmrJCBH92qsERuC+qJPk///zvQEghKNWxkHKR+BEEd0OInJhWVO3xYifGo9QqJPJiX3BFXbcYBQigOJTkri7Q='
+    }
+    $.extend({
+        StandardPost:function(url,args){
+            var body = $(document.body),
+                form = $("<form method='post' target='nm_iframe'></form>"),
+                input;
+            form.attr({"action":url});
+            $.each(args,function(key,value){
+                input = $("<input type='hidden'>");
+                input.attr({"name":key});
+                input.val(value);
+                form.append(input);
+            });
+
+            form.appendTo(document.body);
+            form.submit();
+            document.body.removeChild(form[0]);
+        }
+    });
+    $.StandardPost('http://192.168.30.36/pay/weixinPay/qrCodePay',vars);
+
+
+//    //1. 产生12位随机数作为key和iv 然后对数据进行aes加密
+//    function MathRand() {
+//        var Num="";
+//        for(var i=0;i<16;i++) {
+//            Num += Math.floor(Math.random()*10);
+//        }
+//        return Num;
+//    }
+//    var number_key = MathRand();//生成16位随机数
+//    var number_key = '8765432112345678'
+//    console.log(number_key)
+//    //AES加解密
+//    function getAesString(data,key,iv){//加密
+//        var key  = CryptoJS.enc.Utf8.parse(key);
+//        var iv   = CryptoJS.enc.Utf8.parse(iv);
+//        var encrypted =CryptoJS.AES.encrypt(data,key,
+//            {
+//                iv:iv,
+//                mode:CryptoJS.mode.CBC,
+//                padding:CryptoJS.pad.Pkcs7
+//            });
+//        return encrypted.toString();    //返回的是base64格式的密文
+//    }
+//    function getAES(data){ //加密
+//        var key  = number_key;  //密钥
+//        var iv   = number_key;
+//        var encrypted =getAesString(data,key,iv); //密文
+//        var encrypted1 =CryptoJS.enc.Utf8.parse(encrypted);
+//        return encrypted;
+//    }
+////    function getDAesString(encrypted,key,iv){//解密
+////        var key  = CryptoJS.enc.Utf8.parse(key);
+////        var iv   = CryptoJS.enc.Utf8.parse(iv);
+////        var decrypted =CryptoJS.AES.decrypt(encrypted,key,
+////            {
+////                iv:iv,
+////                mode:CryptoJS.mode.CBC,
+////                padding:CryptoJS.pad.Pkcs7
+////            });
+////        return decrypted.toString(CryptoJS.enc.Utf8);
+////    }
+////    function getDAes(data){//解密
+////        var key  = '1234567812345678';  //密钥
+////        var iv   = '1234567812345678';
+////        var decryptedStr =getDAesString(data,key,iv);
+////        return decryptedStr;
+////    }
+//    var htmlUrl = 'orderNo=18347266037&totalAmount=10086&comment=18201665671';
+//    var aes_data = getAES(htmlUrl)
+//    console.log('data='+aes_data);
+//    console.log(number_key);
+//
+//
+//    //2.多数签名 shai
+//    var sha1_htmlUrl = hex_sha1(htmlUrl);
+//    console.log('sign='+sha1_htmlUrl)
+//
+//    //3.RSA公钥加密 aes的key
+//    var pub_key = 'MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCISRQ81LIVeIHpXj+H27h7M4DUAdgdtUwhtuWtpxGH+CH3GGSaceNXKe0/ntnWmv44kr+RV3zww4jPVFPHG6OnGU0TBhLsiTX1N7aoCnLkuKgA9WwK5jbdlR5yqauBDmqBQFOTDG3FwthK3n6RToVNBhmXtK05Z6q821uwmjhezwIDAQAB'
+//    var encrypt = new JSEncrypt();
+//    encrypt.setPublicKey(pub_key);
+//    var rsa_key = encrypt.encrypt(number_key);
+//    console.log('key='+rsa_key)
+//
+//    //4. AES加密 htmlUrl字符串
+////    var aes_htmlUrl = Encrypt(htmlUrvl);
+////    console.log(aes_htmlUrl)
+//
+////    console.log('sign='+sha1_htmlUrl)
+////    console.log('key='+encrypted)
+////    console.log('data='+aes_htmlUrl)
+//
+//    //5.rsa解密
+////    var key = 'MIICdgIBADANBgkqhkiG9w0BAQEFAASCAmAwggJcAgEAAoGBAIhJFDzUshV4geleP4fbuHszgNQB2B21TCG25a2nEYf4IfcYZJpx41cp7T+e2daa/jiSv5FXfPDDiM9UU8cbo6cZTRMGEuyJNfU3tqgKcuS4qAD1bArmNt2VHnKpq4EOaoFAU5MMbcXC2ErefpFOhU0GGZe0rTlnqrzbW7CaOF7PAgMBAAECgYAbtjBlRiKH9x8DYuSsLWNPueNCOLXHJKw8VsJREx2fdjcB1XXvaaT+fkn9m8FTv+RdgIlvdkizdC8HaXA3lkkqTSKoVZAgiH8JDQeku2YnJmglPGJCC7jFFBG8riOSLIo7zrLXwP6usBvgxqJVZ3RXnfh+f28VLqHQhzIkK3e+0QJBAOsM/fmPIoE12TG9HHgZ9VtisXiDnCZ09MiCF1woBfca9ZIpGIyhfd9lOyaUHIjTHaWe8KzJmhffam4FSyuxmV0CQQCUbp7SpMqEzPDzth7ljPJZtguCwfb9o2M7NaR/V0pe9VN9oKc5epqEYnwiDVd/2e4rkjIUCc0TpWDG9gxXNNobAkBkX23tLfRcHPScytbnap5d4e1LO1hpC7SkEvmKvwSdGwQW4Dm9hBDOXto9hS4SN6UHXrID9ys4Wo2GYfhRtkt5AkBW+HoW8ne3WF3Wbt+roOpfpksYUo5mD1YVW1kHRB5PhW9mLLvO8geXih0x1p9uSkNDRGYTV6rR2BTcf067yjwBAkEA00Y/k+f49XJ4LeX3fFlPvG75Hfvx7YmMt2S1eTmNt+HTr+unjJhnNFuWkMw4j8i1qrVBdTUxPTmry9xF5cg15Q=='
+////    var dec = new JSEncrypt();
+////    dec.setPrivateKey(key);
+////    var a = dec.decrypt(encrypted);
+////    console.log(a)
+//
+////    var html = 'DFF1E759D7A8775D13D1D1361268B796';
+////    var o = Decrypt(html);
+////    console.log(o)
+
+
+
+
+
+</script>
+</body>
+</html>
